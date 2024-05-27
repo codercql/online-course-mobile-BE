@@ -3,7 +3,7 @@
 
 <mapper namespace="com.rainng.coursesystem.dao.mapper.ExamScoreMapper">
     <select id="getExamScoreMainPage" resultType="com.rainng.coursesystem.model.vo.response.ExamScoreDetailVO">
-        select res.*,re.name,rc.student_name from rc_exam_score res
+        select res.*,re.name,rs.student_name from rc_exam_score res
         left join rc_exam re on res.exam_id = re.exam_id
         left join rc_student rs on res.student_id = rs.student_id
         <where>
@@ -14,13 +14,13 @@
                 </foreach>
             </if>
             <if test="studentIdList != null and studentIdList.size() > 0">
-                res.student_id in
+                and res.student_id in
                 <foreach collection="studentIdList" open="(" close=")" item="item" index="index" separator=",">
                     #{item}
                 </foreach>
             </if>
             <if test="idList != null and idList.size()>0">
-                res.id in
+                and res.id in
                 <foreach collection="idList" separator="," index="index" item="item" open="(" close=")">
                     #{item}
                 </foreach>
